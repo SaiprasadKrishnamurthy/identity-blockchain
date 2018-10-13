@@ -1,3 +1,6 @@
+A Brilliant writeup on Corda Blockchain: https://gendal.me/2017/02/21/the-corda-way-of-thinking/
+
+
 **To setup**
 
 To build the blockchain network: `./gradlew clean deployNodes`
