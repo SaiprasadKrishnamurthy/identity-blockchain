@@ -1,14 +1,13 @@
 package web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
 import net.corda.core.identity.CordaX500Name;
 import net.corda.core.identity.Party;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import sai1.flow.IdentityCaptureFlow;
 import sai1.model.IdentityState;
 
@@ -63,6 +62,14 @@ public class RestApi {
         CordaX500Name targetX500Name = CordaX500Name.parse(to);
         Party party = rpcConnection.getOps1().wellKnownPartyFromX500Name(targetX500Name);
         rpcConnection.getOps1().startFlowDynamic(IdentityCaptureFlow.class, party, data);
+        return "OK";
+    }
+
+    @PostMapping(value = "/submit", produces = "text/plain", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String submit(@RequestBody final IdentityCaptureRequest identityCaptureRequest) throws Exception {
+        CordaX500Name targetX500Name = CordaX500Name.parse(identityCaptureRequest.getTo());
+        Party party = rpcConnection.getOps1().wellKnownPartyFromX500Name(targetX500Name);
+        rpcConnection.getOps1().startFlowDynamic(IdentityCaptureFlow.class, party, new ObjectMapper().writeValueAsString(identityCaptureRequest));
         return "OK";
     }
 }

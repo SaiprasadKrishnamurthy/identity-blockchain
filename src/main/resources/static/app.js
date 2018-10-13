@@ -17,6 +17,15 @@ app.controller("YoAppController", function($scope, $http, $location, $uibModal) 
     $scope.yos2 = [];
     $scope.yos3 = [];
 
+    $scope.img1;
+    $scope.img2;
+    $scope.img3;
+
+    $scope.e1;
+    $scope.e2;
+    $scope.e3;
+
+
     // Starts streaming new Yo's from the websocket.
     (function connectAndStartStreamingYos() {
         let socket = new SockJS(STOMP_SUBSCRIBE_PATH);
@@ -24,21 +33,36 @@ app.controller("YoAppController", function($scope, $http, $location, $uibModal) 
         stompClient.connect({}, function startStreamingYos(frame) {
             stompClient.subscribe(STOMP_RESPONSE_PATH1, function updateYos(update) {
                 let yoState = JSON.parse(update.body);
+                yoState.img=JSON.parse(yoState.data1).image;
+                yoState.e=JSON.stringify(JSON.parse(yoState.data1).events);
                 $scope.yos1.push(yoState);
+                $scope.img1 = JSON.parse(yoState.data1).image;
+                $scope.e1 = JSON.stringify(JSON.parse(yoState.data1).events);
+                debugger;
+
                 // Forces the view to refresh, showing the new Yo.
                 $scope.$apply();
             });
 
             stompClient.subscribe(STOMP_RESPONSE_PATH2, function updateYos(update) {
                             let yoState = JSON.parse(update.body);
+                            yoState.img=JSON.parse(yoState.data2).image;
+                            yoState.e=JSON.stringify(JSON.parse(yoState.data2).events);
                             $scope.yos2.push(yoState);
+                            $scope.img2 = JSON.parse(yoState.data2).image;
+                            $scope.e2 = JSON.stringify(JSON.parse(yoState.data2).events);
+
                             // Forces the view to refresh, showing the new Yo.
                             $scope.$apply();
                         });
 
             stompClient.subscribe(STOMP_RESPONSE_PATH3, function updateYos(update) {
                 let yoState = JSON.parse(update.body);
+                    yoState.img=JSON.parse(yoState.data3).image;
+                    yoState.e=JSON.stringify(JSON.parse(yoState.data3).events);
                     $scope.yos3.push(yoState);
+                    $scope.img3 = JSON.parse(yoState.data3).image;
+                    $scope.e3 = JSON.stringify(JSON.parse(yoState.data3).events);
                     $scope.$apply();
                 });
         });

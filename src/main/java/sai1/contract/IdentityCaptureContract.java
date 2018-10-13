@@ -25,7 +25,7 @@ public class IdentityCaptureContract implements Contract {
             requirements.using("There must be 0 input state", incomingTransaction.getInputs().size() == 0);
             requirements.using("There must be 1 output state", incomingTransaction.getOutputs().size() == 1);
             requirements.using("There must be 1 command1", incomingTransaction.getCommands().size() == 1);
-            requirements.using("Identity Validation Failed miserably!", incomingTransaction.commandsOfType(SaveIdentity.class).get(0).getValue().getIdentity().length() != 4);
+            requirements.using("IdentityCaptureRequest Validation Failed miserably!", incomingTransaction.commandsOfType(SaveIdentity.class).get(0).getValue().getIdentity().length() != 4);
 
             IdentityState identityOutputState = incomingTransaction.outputsOfType(IdentityState.class).get(0);
 
