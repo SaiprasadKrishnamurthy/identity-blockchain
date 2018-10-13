@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yo CorDapp</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script src="app.js"></script>
+</head>
+
+<body ng-app="yoAppModule" ng-controller="YoAppController as yoApp">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Identities Tracker</a>
+        </div>
+    </div>
+</nav>
+<div class="row">
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Committed Identities: PartyA's fact</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            <li ng-repeat="yo in yos1">
+                                <div class="well" style="background-color: cyan !important;">
+                                    <span style="word-wrap: break-word;">From: {{yo.source1}}</span>
+                                    <br>
+                                    <span style="word-wrap: break-word;">To: {{yo.target1}}</span>
+                                    <br>
+                                    <span style="word-wrap: break-word;">Data: {{yo.data1}}</span>
+                                    <br>
+                                    <span style="word-wrap: break-word;">Txn Hash: {{yo.transactionId1}}</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Committed Identities: PartyB's fact</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            <li ng-repeat="yo in yos2">
+                                <div class="well" style="background-color: green !important;">
+                                    <span style="word-wrap: break-word;">From: {{yo.source2}}</span>
+                                    <br>
+                                    <span style="word-wrap: break-word;">To: {{yo.target2}}</span>
+                                    <br>
+                                    <span style="word-wrap: break-word;">Data: {{yo.data2}}</span>
+                                    <br>
+                                    <span style="word-wrap: break-word;">Txn Hash: {{yo.transactionId2}}</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Committed Identities: WatchDog's fact</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            <li ng-repeat="yo in yos3">
+                                <div class="well" style="background-color: blue !important;">
+                                    <span style="word-wrap: break-word;">From: {{yo.source3}}</span>
+                                    <br>
+                                    <span style="word-wrap: break-word;">To: {{yo.target3}}</span>
+                                    <br>
+                                    <span style="word-wrap: break-word;">Data: {{yo.data3}}</span>
+                                    <br>
+                                    <span style="word-wrap: break-word;">Txn Hash: {{yo.transactionId3}}</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

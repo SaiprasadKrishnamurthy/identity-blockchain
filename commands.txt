@@ -1,0 +1,6 @@
+flow start sai1.flow.IdentityCaptureFlow targetParty: PartyB, identityData: "Some Data"
+run vaultQuery contractStateType: sai1.model.IdentityState
+
+lsof -nP +c 15 | grep LISTEN | grep 10009
+
+http://localhost:8080/api/v1/capture?to=O=PartyB,L=New%20York,C=US&data=Data
