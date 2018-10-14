@@ -8,6 +8,10 @@ const STOMP_RESPONSE_PATH1 = "/stompresponse1";
 const STOMP_RESPONSE_PATH2 = "/stompresponse2";
 const STOMP_RESPONSE_PATH3 = "/stompresponse3";
 
+const STATE_A = "/states?party=PartyA";
+const STATE_B = "/states?party=PartyB";
+const STATE_C = "/states?party=WatchDog";
+
 const app = angular.module("yoAppModule", ["ui.bootstrap"]);
 
 app.controller("YoAppController", function($scope, $http, $location, $uibModal) {
@@ -91,6 +95,50 @@ app.controller('ShowMessageController', function ($uibModalInstance, message) {
     const modalInstanceTwo = this;
     modalInstanceTwo.message = message.data;
 });
+
+app.controller("StatesController", function($scope, $http, $location, $uibModal) {
+    const yoApp = this;
+    let peers = [];
+    $scope.yos1 = [];
+    $scope.yos2 = [];
+    $scope.yos3 = [];
+
+    // Starts streaming new Yo's from the websocket.
+    (function allStates() {
+        $http.get(REST_BASE_PATH+STATE_A)
+            .then(function(response) {
+                debugger;
+                $scope.yos1 = $scope.yos1.concat(response.data);
+            });
+
+             $http.get(REST_BASE_PATH+STATE_B)
+                .then(function(response) {
+                     $scope.yos2 = $scope.yos2.concat(response.data);
+              });
+              $http.get(REST_BASE_PATH+STATE_C)
+                .then(function(response) {
+                    $scope.yos3 = $scope.yos3.concat(response.data);
+              });
+    })();
+
+    // Opens the send-Yo modal.
+    yoApp.openSendYoModal = function openSendYoModal() {
+        $uibModal.open({
+            templateUrl: "yoAppModal.html",
+            controller: "SendYoModalController",
+            controllerAs: "sendYoModal",
+            resolve: {
+                peers: () => peers
+            }
+        });
+    };
+
+    // Gets a list of existing Yo's.
+    function getYos() {
+        return this.yos;
+    }
+});
+
 
 // Intercepts unhandled-rejection errors.
 app.config(["$qProvider", function ($qProvider) {

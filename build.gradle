@@ -1,6 +1,6 @@
 buildscript {
     ext.corda_release_group = 'net.corda'
-    ext.corda_release_version = 'corda-3.0'
+    ext.corda_release_version = '3.2-corda'
     ext.corda_gradle_plugins_version = '3.0.9'
     ext.junit_version = '4.12'
     ext.quasar_version = '0.7.9'
@@ -74,6 +74,9 @@ dependencies {
     }
     compile "org.springframework.boot:spring-boot-starter-log4j2:$spring_boot_version"
     compile "org.apache.logging.log4j:log4j-web:2.7"
+    compile 'com.deliveredtechnologies:rulebook-core:0.10'
+    compile group: 'com.deliveredtechnologies', name: 'rulebook-spring', version: '0.10'
+
 
     compile group: 'net.coobird', name: 'thumbnailator', version: '0.4.8'
 

@@ -15,7 +15,7 @@
     <script src="app.js"></script>
 </head>
 
-<body ng-app="yoAppModule" ng-controller="YoAppController as yoApp">
+<body ng-app="yoAppModule" ng-controller="StatesController as yoApp">
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -37,15 +37,9 @@
                         <ul>
                             <li ng-repeat="yo in yos1">
                                 <div class="well" style="background-color: cyan !important;">
-                                    <img src="{{yo.img}}"/>
+                                    <img src="{{yo.image}}"/>
                                     <hr>
-                                    <span style="word-wrap: break-word;">From: {{yo.source1}}</span>
-                                    <br>
-                                    <span style="word-wrap: break-word;">To: {{yo.target1}}</span>
-                                    <br>
-                                    <span style="word-wrap: break-word;">Txn Hash: {{yo.transactionId1}}</span>
-                                    <br>
-                                    <span style="word-wrap: break-word;">{{yo.e}}</span>
+                                    <span style="word-wrap: break-word;">{{yo.events}}</span>
 
                                 </div>
                             </li>
@@ -68,15 +62,9 @@
                         <ul>
                             <li ng-repeat="yo in yos2">
                                 <div class="well" style="background-color: cyan !important;">
-                                    <img src="{{yo.img}}"/>
+                                    <img src="{{yo.image}}"/>
                                     <hr>
-                                    <span style="word-wrap: break-word;">From: {{yo.source2}}</span>
-                                    <br>
-                                    <span style="word-wrap: break-word;">To: {{yo.target2}}</span>
-                                    <br>
-                                    <span style="word-wrap: break-word;">Txn Hash: {{yo.transactionId2}}</span>
-                                    <br>
-                                    <span style="word-wrap: break-word;">{{yo.e}}</span>
+                                    <span style="word-wrap: break-word;">{{yo.events}}</span>
 
                                 </div>
                             </li>
@@ -99,15 +87,9 @@
                         <ul>
                             <li ng-repeat="yo in yos3">
                                 <div class="well" style="background-color: cyan !important;">
-                                    <img src="{{yo.img}}"/>
+                                    <img src="{{yo.image}}"/>
                                     <hr>
-                                    <span style="word-wrap: break-word;">From: {{yo.source3}}</span>
-                                    <br>
-                                    <span style="word-wrap: break-word;">To: {{yo.target3}}</span>
-                                    <br>
-                                    <span style="word-wrap: break-word;">Txn Hash: {{yo.transactionId3}}</span>
-                                    <br>
-                                    <span style="word-wrap: break-word;">{{yo.e}}</span>
+                                    <span style="word-wrap: break-word;">{{yo.events}}</span>
                                 </div>
                             </li>
                         </ul>

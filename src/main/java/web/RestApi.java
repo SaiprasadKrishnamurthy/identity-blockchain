@@ -4,12 +4,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
 import net.corda.core.identity.CordaX500Name;
 import net.corda.core.identity.Party;
+import net.corda.core.node.services.Vault;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import sai1.flow.IdentityCaptureFlow;
 import sai1.model.IdentityState;
+
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/v1")
@@ -71,5 +78,29 @@ public class RestApi {
         Party party = rpcConnection.getOps1().wellKnownPartyFromX500Name(targetX500Name);
         rpcConnection.getOps1().startFlowDynamic(IdentityCaptureFlow.class, party, new ObjectMapper().writeValueAsString(identityCaptureRequest));
         return "OK";
+    }
+
+    @GetMapping(value = "/states", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Map> states(@RequestParam("party") final String name) throws Exception {
+        Vault.Page<IdentityState> identityStatePage = null;
+        if (name.equalsIgnoreCase("PartyA")) {
+            identityStatePage = rpcConnection.getOps1().vaultQuery(IdentityState.class);
+        } else if (name.equalsIgnoreCase("PartyB")) {
+            identityStatePage = rpcConnection.getOps2().vaultQuery(IdentityState.class);
+        } else {
+            identityStatePage = rpcConnection.getOps3().vaultQuery(IdentityState.class);
+        }
+        return identityStatePage.getStates()
+                .stream()
+                .map(s -> s.getState().getData())
+                .map(s -> s.getIdentityJsonData())
+                .map(s -> {
+                    try {
+                        return new ObjectMapper().readValue(s, Map.class);
+                    } catch (IOException e) {
+                        throw new UncheckedIOException(e);
+                    }
+                })
+                .collect(Collectors.toList());
     }
 }
